@@ -10,7 +10,8 @@ Library                 ../../Libraries/Driver_Manager.py
 *** Variables ***
 ${text}                 Done! This text is coming from Robot Framework
 ${environmentToRunTest}    LOCAL
-
+${Driver}               webdriverManager
+${Browser}              Chrome
 *** Keywords ***
 Open Browser with Base-URL
     [Documentation]    Generic test setup to switch between local and Browserstack testsetup

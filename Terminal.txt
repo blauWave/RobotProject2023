@@ -1,0 +1,10 @@
+robot -d .\Results\ .\Tests\Crm.robot
+
+
+
+robot -d .\Results\ -t "Test Script name" PATH
+
+robot -d .\Results\ -N "Report Name" -t "Test Script name" Path
+
+robot -d .\Results\ -N "Report Name" -t "Test Script name" Path
+
