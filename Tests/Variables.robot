@@ -3,7 +3,7 @@ Documentation       Using different kinds of variables.
 Library    SeleniumLibrary
 Library    BuiltIn
 Library    Collections
-Resource    ../Resources/PO/MyDriver.robot
+Resource    ../Resources/MyDriver.robot
 
 #Test Setup    Open Browser with Base-URL    ${Url}
 #Test Teardown    Close Browser Session
