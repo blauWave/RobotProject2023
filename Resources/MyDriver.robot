@@ -23,6 +23,7 @@ Open Browser with Base-URL and Browser
     ...     ELSE IF         '${environmentToRunTest}'=='BROWSERSTACK'    testSetupBrowserstack    ${Url}
     ...     ELSE IF         '${environmentToRunTest}'=='LAMBDATEST'    testSetupLambdatest    ${Url}
     ...     ELSE            Log       testSetup went wrong. Check the value of the variable 'environmentToRunTest'.
+    capture page screenshot
 
 Login Browser with Base-URL and Browser
     [Documentation]         Generic test setup to switch between local and Browserstack testsetup
