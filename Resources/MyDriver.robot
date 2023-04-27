@@ -1,26 +1,56 @@
 *** Settings ***
-Library                 SeleniumLibrary
-Library                 Collections
-Library                 BuiltIn
-Library                 DateTime
-Library                 String
-Library                 ../../Libraries/Driver_Manager.py
+Library                     SeleniumLibrary
+Library                     Collections
+Library                     BuiltIn
+Library                     DateTime
+Library                     String
+Library                     ../Libraries/Driver_Manager.py
 
 
 *** Variables ***
-${text}                 Done! This text is coming from Robot Framework
-${environmentToRunTest}    LOCAL
-${Driver}               webdriverManager
-${Browser}              Chrome
+${text}                     Done! This text is coming from Robot Framework
+${environmentToRunTest}     LOCAL
+${Driver}                   webdriverManager
+#${Browser}              Chrome
 *** Keywords ***
-Open Browser with Base-URL
-    [Documentation]    Generic test setup to switch between local and Browserstack testsetup
-    [Arguments]      ${Url}
+Open Browser with Base-URL and Browser
+    [Documentation]         Generic test setup to switch between local and Browserstack testsetup
+    [Arguments]             ${Url}    ${Browser}
 
-    Run Keyword If    '${environmentToRunTest}'=='LOCAL'           ${Driver}    ${Url}     ${Browser}
-    ...     ELSE IF   '${environmentToRunTest}'=='BROWSERSTACK'    testSetupBrowserstack    ${Url}
-    ...     ELSE IF   '${environmentToRunTest}'=='LAMBDATEST'    testSetupLambdatest    ${Url}
-    ...     ELSE      Log       testSetup went wrong. Check the value of the variable 'environmentToRunTest'.
+    Run Keyword If          '${environmentToRunTest}'=='LOCAL'           ${Driver}    ${Url}     ${Browser}
+    ...     ELSE IF         '${environmentToRunTest}'=='BROWSERSTACK'    testSetupBrowserstack    ${Url}
+    ...     ELSE IF         '${environmentToRunTest}'=='LAMBDATEST'    testSetupLambdatest    ${Url}
+    ...     ELSE            Log       testSetup went wrong. Check the value of the variable 'environmentToRunTest'.
+
+
+testSetupLocal
+    [Arguments]             ${Url}     ${Browser}
+    open browser            ${Url}    ${Browser}
+
+Close Browser Session
+    Run keyword if          '${environmentToRunTest}'=='LAMBDATEST'
+    ...                     Report Lambdatest Status
+    ...                     ${TEST_NAME}
+    ...                     ${TEST_STATUS}
+    close all browsers
+
+webdriverManager
+    [Arguments]             ${Url}     ${Browser}
+    ${chromedriver_path}=   Get Driver Path    ${Browser}
+    Create Webdriver        ${Browser}    executable_path=${chromedriver_path}
+    Go to                   ${Url}
+    maximize browser window
+
+
+## Loops through all defined browsers and exeuctes one testcase after another in a different browser
+## @fixme: Klappt so noch nicht. Muss evtl über den Aufruf in der Konsole (mit PABOT?) gemacht werden.
+#testwithseveralbrowser
+#    [Arguments]      ${Url}    ${Browser}
+#    FOR  ${browser}  IN   @{BROWSERS}
+#        log to console    ("Testing ${Url} in Browser: ${browser} ")
+#        Run Keyword      webdriverManager        ${Url}    ${browser}
+#    END
+
 
 
 
@@ -61,32 +91,3 @@ Open Browser with Base-URL
 #    # open browser    http://www.google.com  ${Browser}  remote_url=${REMOTE_URL}     desired_capabilities=${CAPABILITIES}
 #    open browser    ${Url}  ${Browser}  remote_url=${REMOTE_URL}     desired_capabilities=${CAPABILITIES}
 #    maximize browser window
-
-testSetupLocal
-    [Arguments]      ${Url}     ${Browser}
-    open browser    ${Url}    ${Browser}
-
-
-Close Browser Session
-    Run keyword if  '${environmentToRunTest}'=='LAMBDATEST'
-    ...  Report Lambdatest Status
-    ...  ${TEST_NAME}
-    ...  ${TEST_STATUS}
-    close all browsers
-
-
-webdriverManager
-    [Arguments]      ${Url}     ${Browser}
-    ${chromedriver_path}=    Get Driver Path    ${Browser}
-    Create Webdriver    ${Browser}    executable_path=${chromedriver_path}
-    Go to  ${Url}
-
-
-## Loops through all defined browsers and exeuctes one testcase after another in a different browser
-## @fixme: Klappt so noch nicht. Muss evtl über den Aufruf in der Konsole (mit PABOT?) gemacht werden.
-#testwithseveralbrowser
-#    [Arguments]      ${Url}    ${Browser}
-#    FOR  ${browser}  IN   @{BROWSERS}
-#        log to console    ("Testing ${Url} in Browser: ${browser} ")
-#        Run Keyword      webdriverManager        ${Url}    ${browser}
-#    END
