@@ -6,6 +6,8 @@ Library                     DateTime
 Library                     String
 Library                     ../Libraries/Driver_Manager.py
 
+Resource                    Resources/PO/Login_def.robot
+
 
 *** Variables ***
 ${text}                     Done! This text is coming from Robot Framework
@@ -22,7 +24,20 @@ Open Browser with Base-URL and Browser
     ...     ELSE IF         '${environmentToRunTest}'=='LAMBDATEST'    testSetupLambdatest    ${Url}
     ...     ELSE            Log       testSetup went wrong. Check the value of the variable 'environmentToRunTest'.
 
+Login Browser with Base-URL and Browser
+    [Documentation]         Generic test setup to switch between local and Browserstack testsetup
+    [Arguments]             ${Url}    ${Browser}
 
+    Run Keyword If          '${environmentToRunTest}'=='LOCAL'           ${Driver}    ${Url}     ${Browser}
+    run keyword             User should be able to login succesfully
+
+
+User should be able to login succesfully
+    User clicks link to login
+    User puts user name
+    User puts password
+    User clicks the login button
+    User should see "Our Happy Customers"-2
 testSetupLocal
     [Arguments]             ${Url}     ${Browser}
     open browser            ${Url}    ${Browser}
