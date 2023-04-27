@@ -1,5 +1,5 @@
 ./Results/*.*
-./Results
+./Results/
 ./Results/Batch/*.*
 
 log.html
