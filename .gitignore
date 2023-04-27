@@ -1,2 +1,7 @@
-/Results/*.*
-/Results/Batch/*.*
+./Results/*.*
+./Results
+./Results/Batch/*.*
+
+log.html
+output.xml
+report.html
