@@ -4,8 +4,9 @@ Library                         SeleniumLibrary
 Resource                        ../Resources/MyDriver.robot
 Resource                        ../Resources/PO/Login_def.robot
 Resource                        ../Resources/PO/NewCustomer_def.robot
-Test Setup                      Open Browser with Base-URL and Browser    ${Url}    ${Browser}
+Test Setup                      Login Browser with Base-URL and Browser    ${Url}    ${Browser}
 Test Teardown                   Close Browser Session
+Suite Setup                     set screenshot directory    ${output_dir}/Results/Screenshots/NewCustomer/
 
 *** Variables ***
 ${Url}                          https://automationplayground.com/crm/
@@ -14,9 +15,12 @@ ${Browser}                      Chrome
 
 
 *** Test Cases ***
-Should be able to add new customer
-    User should be able to login succesfully
-    User should be able to add new customer
+User should be able to add new customer
+    User clicks link to add new customer
+    User fills all the informations
+    User clicks the submit button
+    User should see "Success! New customer added"
+
 
 
 
