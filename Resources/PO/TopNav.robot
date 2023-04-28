@@ -1,11 +1,13 @@
 *** Settings ***
 Library    SeleniumLibrary
 
-Resource    Landing.robot
-Resource    Team.robot
-Resource    TopNav.robot
 
 *** Variables ***
 
 
 *** Keywords ***
+User selects "Team" page
+    click link                              Team
+    sleep                                   3s
+    wait until page contains element        //*[@id="team"]/div/div[1]/div/h2
+
