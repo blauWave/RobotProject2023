@@ -5,7 +5,7 @@ Library    BuiltIn
 Library    Collections
 Resource    ../Resources/MyDriver.robot
 
-#Test Setup    Open Browser with Base-URL    ${Url}
+#Test Setup    Open Browsera with Base-URL    ${Url}
 #Test Teardown    Close Browser Session
 
 *** Variables ***
