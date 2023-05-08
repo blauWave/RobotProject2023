@@ -9,6 +9,7 @@
 from robot.api.deco import library, keyword
 from robot.libraries.BuiltIn import BuiltIn
 from robot.utils import Application
+import csv
 
 
 @library
@@ -66,9 +67,19 @@ class Methods:
         self.selLib.input_text("id:password", password)
         self.selLib.click_element("id:kc-login")
 
+    # @keyword
+    # def close_driver(self, text):
+    #     self.write_text(text)
+
     @keyword
-    def close_driver(self, text):
-        self.write_text(text)
+    def Minimum_Value_from_list(self, list_):
+        return min([int(x) for x in list_])
 
-
-
+    @keyword
+    def read_csv_file(self,filename):
+        data = []
+        with open(filename,'rt') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                data.append(row)
+        return data
