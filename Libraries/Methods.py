@@ -3,7 +3,6 @@
 # it is like a collection of helpers.
 # methods are defined with the "def" keyword. And the methodname must not contain spaces, but underscore instead.
 
-# @fixme pywinauto funktioniert nicht auf macOS.
 # from pywinauto.application import Application
 
 from robot.api.deco import library, keyword

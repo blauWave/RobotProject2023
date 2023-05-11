@@ -6,7 +6,7 @@ Library                     DateTime
 Library                     String
 Library                     ../Libraries/Driver_Manager.py
 
-Resource                    Resources/PO/Login_def.robot
+Resource                    ./PO/Login_def.robot
 
 
 *** Variables ***

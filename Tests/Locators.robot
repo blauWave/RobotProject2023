@@ -3,12 +3,12 @@ Documentation       Using different kinds of variables.
 Library    SeleniumLibrary
 Library    BuiltIn
 Library    Collections
-Library    Libraries/Methods.py
+Library    ../Libraries/Methods.py
 Resource    ../Resources/MyDriver.robot
 Resource    ../Resources/DataManager.robot
 
-#Test Setup    Open Browser with Base-URL and Browser   ${Url}    ${Browser}
-#Test Teardown    Close Browser Session
+Test Setup    Open Browser with Base-URL and Browser   ${Url}    ${Browser}
+Test Teardown    Close Browser Session
 
 *** Variables ***
 
@@ -26,17 +26,16 @@ test specific locators
     sleep    4s
 
 test cace 1
+    [Tags]    search
     log to console    Abdulkadir
     wait until element is visible    id:sp-cc-accept
     click element    id:sp-cc-accept
     click link    Bestseller
     wait until page contains    Bestseller in Sport & Freizeit
-    input text    id:twotabsearchtextbox    iphoneabdulkad
+    input text    id:twotabsearchtextbox    iphone
     click button    id:nav-search-submit-button
     Execute JavaScript    window.scrollTo(0, 15000)    # scroll down
-    Sleep    2s
     Execute JavaScript    window.scrollTo(0, 500)    # scroll up
-    Sleep    2s
     wait until element is visible    (//*[@class='a-price-whole'])[1]
     @{prices}    Get WebElements    //*[@class='a-price-whole']
     ${countElements}=    get element count    //*[@class='a-price-whole']
